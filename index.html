@@ -6,6 +6,7 @@
     <title>Welcome — UltraEdit-style Demo</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -87,10 +88,10 @@
         <aside class="sidebar" aria-label="Sidebar">
             <h3 class="sidebar-title">UltraEdit UI</h3>
             <nav class="sidebar-nav">
-                <a href="#">Home</a>
-                <a href="#">Files</a>
-                <a href="#">Edit</a>
-                <a href="#">Projects</a>
+                <a href="#" id="sidebarHomeLink" data-section="home">Home</a>
+                <a href="#" id="sidebarFilesLink" data-section="files">Files</a>
+                <a href="#" id="sidebarEditLink" data-section="edit">Edit</a>
+                <a href="#" id="sidebarProjectsLink" data-section="projects">Projects</a>
             </nav>
             <button id="logoutBtn" class="btn-ghost">Logout</button>
         </aside>
@@ -101,7 +102,104 @@
                 <h2 id="dashboardGreeting">Welcome to your dashboard</h2>
             </div>
 
-            <p>This is a responsive UltraEdit-style dashboard demo. Customize it as you like.</p>
+            <div id="dashboardSectionContent">
+                <section id="homeSection" class="dashboard-section">
+                    <div class="dashboard-header">
+                        <div>
+                            <h3>Overview</h3>
+                            <p class="muted">Quick actions and recent items.</p>
+                        </div>
+                        <div class="date-filters">
+                            <label>From <input type="date" id="filterFrom"></label>
+                            <label>To <input type="date" id="filterTo"></label>
+                            <button id="applyDateFilter" class="btn-primary">Apply</button>
+                        </div>
+                    </div>
+
+                    <div class="kpi-row" id="kpiRow">
+                        <div class="kpi-card">
+                            <div class="kpi-title">Total Files</div>
+                            <div class="kpi-value" id="kpiTotalFiles">0</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-title">Active Projects</div>
+                            <div class="kpi-value" id="kpiProjects">0</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-title">Last 7 days Edits</div>
+                            <div class="kpi-value" id="kpiEdits7">0</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-title">Storage (KB)</div>
+                            <div class="kpi-value" id="kpiStorage">0</div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <canvas id="lineChart" aria-label="Activity over time" role="img"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <canvas id="barChart" aria-label="Files by category" role="img"></canvas>
+                        </div>
+                        <div class="chart-card small">
+                            <canvas id="pieChart" aria-label="Status distribution" role="img"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-controls">
+                        <input id="searchInput" placeholder="Search files or content...">
+                        <select id="categoryFilter">
+                            <option value="">All categories</option>
+                            <option value="notes">Notes</option>
+                            <option value="code">Code</option>
+                            <option value="docs">Docs</option>
+                        </select>
+                    </div>
+
+                    <div class="alerts-area" id="alertsArea"></div>
+
+                    <div class="data-table-wrap">
+                        <table class="data-table" id="dataTable">
+                            <thead><tr><th>Name</th><th>Category</th><th>Date</th><th>Size (KB)</th><th>Status</th></tr></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <div id="recentFiles" class="cards"></div>
+                </section>
+
+                <section id="filesSection" class="dashboard-section" hidden>
+                    <div class="files-layout">
+                        <aside class="files-panel">
+                            <div class="files-toolbar">
+                                <button id="btnNewFile" class="btn-primary">New file</button>
+                            </div>
+                            <ul id="filesList" class="files-list" aria-live="polite"></ul>
+                        </aside>
+
+                        <div class="editor-panel">
+                            <input id="fileName" class="file-name" placeholder="Untitled.txt">
+                            <textarea id="fileContent" class="file-content" placeholder="Start typing your file..."></textarea>
+                            <div class="file-actions">
+                                <button id="btnSaveFile" class="btn-primary">Save</button>
+                                <button id="btnDeleteFile" class="btn-ghost">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="editSection" class="dashboard-section" hidden>
+                    <h3>Quick edit</h3>
+                    <p class="muted">Open a file from Files to edit here.</p>
+                </section>
+
+                <section id="projectsSection" class="dashboard-section" hidden>
+                    <h3>Projects</h3>
+                    <p class="muted">Manage your projects (mock data).</p>
+                    <ul id="projectsList" class="projects-list"></ul>
+                </section>
+            </div>
         </div>
     </section>
 </main>
