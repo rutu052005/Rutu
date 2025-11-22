@@ -1,69 +1,117 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>All-in-One Web App</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Welcome — UltraEdit-style Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- LOGIN PAGE -->
-<div class="container" id="loginPage">
-    <h2>Login</h2>
-    <p id="loginMsg"></p>
-
-    <input type="email" id="loginEmail" placeholder="Email">
-    <input type="password" id="loginPassword" placeholder="Password">
-
-    <button onclick="login()">Login</button>
-
-    <p style="text-align:center; margin-top:10px;">
-        Don't have an account? <a href="#" onclick="showSignup()">Create one</a>
-    </p>
-</div>
-
-
-<!-- SIGNUP PAGE -->
-<div class="container" id="signupPage" style="display:none;">
-    <h2>Signup</h2>
-    <p id="signupMsg"></p>
-
-    <input type="text" id="name" placeholder="Full Name">
-    <input type="email" id="signupEmail" placeholder="Email">
-    <input type="password" id="signupPassword" placeholder="Password">
-
-    <button onclick="signup()">Create Account</button>
-
-    <p style="text-align:center; margin-top:10px;">
-        Already have an account? <a href="#" onclick="showLogin()">Login</a>
-    </p>
-</div>
-
-
-<!-- DASHBOARD PAGE -->
-<div class="dashboard" id="dashboardPage" style="display:none;">
-    
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h3>UltraEdit UI</h3>
-
-        <a href="#">Home</a>
-        <a href="#">Files</a>
-        <a href="#">Edit</a>
-        <a href="#">Projects</a>
-        <a href="#" onclick="logout()">Logout</a>
+<header class="site-header">
+    <div class="container narrow">
+        <h1 class="brand">UltraEdit Demo</h1>
+        <nav aria-label="Primary" class="header-nav">
+            <a href="#" id="navHome">Home</a>
+            <a href="#" id="navSignup">Sign up</a>
+        </nav>
+            <div id="profileBadge" class="profile-badge" hidden>
+                <span id="profileName" class="profile-name"></span>
+                <button id="profileLogout" class="btn-ghost small">Logout</button>
+            </div>
     </div>
+</header>
 
-    <!-- Main Content -->
-    <div class="main-content">
-        
-        <div class="top-nav">
-            <h2>Welcome to Dashboard</h2>
+<main>
+    <!-- LOGIN PAGE -->
+    <section class="container" id="loginPage" aria-labelledby="loginTitle">
+        <h2 id="loginTitle">Sign in</h2>
+        <div id="loginMsg" class="form-message" role="alert" aria-live="polite"></div>
+
+        <form id="loginForm" novalidate>
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" name="email" required>
+
+            <label for="loginPassword">Password</label>
+            <div class="password-row">
+                <input type="password" id="loginPassword" name="password" required minlength="6">
+                <button type="button" class="pw-toggle" data-target="loginPassword" aria-label="Show password">Show</button>
+            </div>
+
+            <button type="submit" class="btn-primary">Login</button>
+        </form>
+
+        <p class="muted centered">
+            Don't have an account? <a href="#" id="showSignupLink">Create one</a>
+        </p>
+    </section>
+
+
+    <!-- SIGNUP PAGE -->
+    <section class="container" id="signupPage" aria-labelledby="signupTitle" hidden>
+        <h2 id="signupTitle">Create account</h2>
+        <div id="signupMsg" class="form-message" role="alert" aria-live="polite"></div>
+
+        <form id="signupForm" novalidate>
+            <label for="name">Full name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="signupEmail">Email</label>
+            <input type="email" id="signupEmail" name="email" required>
+
+            <label for="signupPassword">Password</label>
+            <div class="password-row">
+                <input type="password" id="signupPassword" name="password" required minlength="6">
+                <button type="button" class="pw-toggle" data-target="signupPassword" aria-label="Show password">Show</button>
+            </div>
+
+            <label for="signupPasswordConfirm">Confirm password</label>
+            <div class="password-row">
+                <input type="password" id="signupPasswordConfirm" name="passwordConfirm" required minlength="6">
+                <button type="button" class="pw-toggle" data-target="signupPasswordConfirm" aria-label="Show password">Show</button>
+            </div>
+
+            <button type="submit" class="btn-primary">Create account</button>
+        </form>
+
+        <p class="muted centered">
+            Already have an account? <a href="#" id="showLoginLink">Login</a>
+        </p>
+    </section>
+
+
+    <!-- DASHBOARD PAGE -->
+    <section class="dashboard" id="dashboardPage" hidden>
+        <!-- Sidebar -->
+        <aside class="sidebar" aria-label="Sidebar">
+            <h3 class="sidebar-title">UltraEdit UI</h3>
+            <nav class="sidebar-nav">
+                <a href="#">Home</a>
+                <a href="#">Files</a>
+                <a href="#">Edit</a>
+                <a href="#">Projects</a>
+            </nav>
+            <button id="logoutBtn" class="btn-ghost">Logout</button>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-nav">
+                <h2 id="dashboardGreeting">Welcome to your dashboard</h2>
+            </div>
+
+            <p>This is a responsive UltraEdit-style dashboard demo. Customize it as you like.</p>
         </div>
+    </section>
+</main>
 
-        <p>This is your UltraEdit-style dashboard inside the SAME PAGE!</p>
-    </div>
+<footer class="site-footer">
+    <div class="container narrow muted">© Demo project — not for production</div>
+</footer>
 
-</div>
+<!-- Toast notifications -->
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
 <script src="script.js"></script>
 </body>
