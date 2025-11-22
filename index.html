@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All-in-One Web App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<div class="container" id="loginPage">
+    <h2>Login</h2>
+    <p id="loginMsg"></p>
+
+    <input type="email" id="loginEmail" placeholder="Email">
+    <input type="password" id="loginPassword" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <p style="text-align:center; margin-top:10px;">
+        Don't have an account? <a href="#" onclick="showSignup()">Create one</a>
+    </p>
+</div>
+
+
+<!-- SIGNUP PAGE -->
+<div class="container" id="signupPage" style="display:none;">
+    <h2>Signup</h2>
+    <p id="signupMsg"></p>
+
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="email" id="signupEmail" placeholder="Email">
+    <input type="password" id="signupPassword" placeholder="Password">
+
+    <button onclick="signup()">Create Account</button>
+
+    <p style="text-align:center; margin-top:10px;">
+        Already have an account? <a href="#" onclick="showLogin()">Login</a>
+    </p>
+</div>
+
+
+<!-- DASHBOARD PAGE -->
+<div class="dashboard" id="dashboardPage" style="display:none;">
+    
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>UltraEdit UI</h3>
+
+        <a href="#">Home</a>
+        <a href="#">Files</a>
+        <a href="#">Edit</a>
+        <a href="#">Projects</a>
+        <a href="#" onclick="logout()">Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        
+        <div class="top-nav">
+            <h2>Welcome to Dashboard</h2>
+        </div>
+
+        <p>This is your UltraEdit-style dashboard inside the SAME PAGE!</p>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
